@@ -3,69 +3,39 @@ import {
     IonButton,
     IonContent, IonGrid,
     IonHeader,
-    IonInput,
-    IonItem,
-    IonLabel,
-    IonList, IonLoading,
     IonPage, IonRouterLink, IonRow, IonText
 } from "@ionic/react";
 
 import styles from './Login.module.css';
 import RegisterHeader from '../components/RegisterHeader';
 
-import { auth } from '../firebase/firebase.utils.js';
-import {Redirect} from "react-router-dom";
-import { useAuth } from "../auth";
+import { LoginButton } from "@inrupt/solid-ui-react";
 
 const Login: React.FC = ({  }) => {
-    const { loggedIn } = useAuth();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [status, setstatus] = useState({loading: false, error: false});
-
-    const handleLogin = async () => {
-        try {
-            setstatus({loading: true, error: false});
-            await auth.signInWithEmailAndPassword(email, password);
-        } catch(error) {
-            setstatus({loading: false, error: true});
-        }
-
-    }
-    if (loggedIn) {
-        return <Redirect to="/my/home"/>;
-    }
     return (
         <IonPage>
             <IonHeader>
                 <RegisterHeader/>
             </IonHeader>
             <IonContent class="ion-padding">
-                <IonList lines="inset">
-                    <IonItem lines="inset">
-                        {status.error &&
-                            <IonText color="danger">Ongeldige login gegevens</IonText>
-                        }
-                        <IonLabel position={"stacked"}>Email</IonLabel>
-                        <IonInput type={"email"} value={email}
-                            onIonChange={(event) => setEmail(event.detail.value)}
-                        />
-                    </IonItem>
-                    <IonItem lines="inset">
-                        <IonLabel position={"stacked"}>Password</IonLabel>
-                        <IonInput type={"password"} value={password}
-                            onIonChange={(event) => setPassword(event.detail.value)}
-                        />
-                    </IonItem>
-                </IonList>
                 <IonGrid>
+                    <IonRow>
+                        <p>
+                            Deze applicatie maakt gebruik van <a href="https://solidproject.org/">SOLID</a>.
+                            Inloggen en registratie wordt momenteel alleen ondersteund voor Pods gehost via <a href="https://inrupt.net">Inrupt Pod Spaces</a>.
+                        </p>
+                    </IonRow>
                     <IonRow class="ion-justify-content-center">
-                        <IonButton onClick={handleLogin}>Login</IonButton>
-                        <IonLoading isOpen={status.loading}/>
+                        <LoginButton
+                        oidcIssuer="https://inrupt.net"
+                        redirectUrl="http://localhost:8100/my/home"
+                        > 
+                            <IonButton className={styles.solid}>Log In using solid</IonButton>
+                        </LoginButton>
                     </IonRow>
                     <IonRow  class="ion-justify-content-center">
                         <IonRow  class="ion-justify-content-center" className={styles.row}>
-                            <IonRouterLink routerLink="/register" className={styles.login}>Of Registreer</IonRouterLink>
+                            <IonRouterLink href="https://inrupt.net/register" className={styles.login}>Of Registreer</IonRouterLink>
                         </IonRow>
                     </IonRow>
                 </IonGrid>

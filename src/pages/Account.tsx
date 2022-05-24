@@ -1,13 +1,13 @@
 import {
     IonButton,
     IonContent,
+    IonGrid,
     IonHeader, IonIcon,
     IonItem, IonLabel,
     IonPage,
-    IonRouterLink,
+    IonRow,
     IonTitle,
     IonToggle,
-    IonToolbar
 } from '@ionic/react';
 import styles from "./Account.module.css";
 import React from "react";
@@ -37,10 +37,11 @@ const Account: React.FC = () => {
                         onIonChange={toggleDarkModeHandler}
                     />
                 </IonItem>
-                <IonButton fill="clear" color="dark" className={styles.logout}
-                    onClick={() => auth.signOut()}>
-                    Logout
-                </IonButton>
+                <IonGrid>
+                    <IonRow class="ion-justify-content-center">
+                        <IonButton fill="clear" color="dark"  routerLink="/login" className={styles.logout}>logout</IonButton>
+                    </IonRow>
+                </IonGrid>
             </IonContent>
         </IonPage>
     );

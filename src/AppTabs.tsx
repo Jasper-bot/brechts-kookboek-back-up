@@ -28,9 +28,9 @@ import SearchRecipes from "./pages/SearchRecipes";
 
 const AppTabs: React.FC = () => {
   const { loggedIn } = useAuth();
-  if (!loggedIn) {
-    return <Redirect to="/login" />;
-  }
+  // if (!loggedIn) {
+  //   return <Redirect to="/login" />;
+  // }
 
   return (
           <IonTabs>
