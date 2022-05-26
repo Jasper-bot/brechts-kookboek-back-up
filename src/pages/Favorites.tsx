@@ -18,6 +18,7 @@ import {useAuth} from "../auth";
 const Favorites: React.FC = () => {
     const { userId, favoriteRecipes } = useAuth();
     const [recipes, setRecipes] = useState<Recipe[]>([]);
+    
     useEffect(() => {
         const recipesRef = db.collection('recipes');
         favoriteRecipes.forEach( el => {
