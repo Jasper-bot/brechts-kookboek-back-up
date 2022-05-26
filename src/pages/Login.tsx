@@ -12,6 +12,10 @@ import RegisterHeader from '../components/RegisterHeader';
 import { LoginButton } from "@inrupt/solid-ui-react";
 
 const Login: React.FC = ({  }) => {
+    function handleError() {
+        console.log("Error during login");
+    }
+    
     return (
         <IonPage>
             <IonHeader>
@@ -30,6 +34,7 @@ const Login: React.FC = ({  }) => {
                         // "https://broker.pod.inrupt.com/"
                         oidcIssuer="https://inrupt.net"
                         redirectUrl="http://localhost:8100/my/home"
+                        onError={handleError}
                         > 
                             <IonButton className={styles.solid}>Log In using solid</IonButton>
                         </LoginButton>

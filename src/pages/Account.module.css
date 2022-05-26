@@ -2,5 +2,9 @@
     font-size: 80%;
     color: black;
     text-decoration: underline;
-    /*text-transform: none;*/
+}
+
+span {
+    display: block;
+    padding: 0 20px 10px 20px;
 }

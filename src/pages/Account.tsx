@@ -5,6 +5,7 @@ import {
     IonHeader, IonIcon,
     IonItem, IonLabel,
     IonPage,
+    IonRouterLink,
     IonRow,
     IonTitle,
     IonToggle,
@@ -15,13 +16,10 @@ import { auth } from '../firebase/firebase.utils.js';
 import Header from "../components/Header";
 import {useAuth} from "../auth";
 import {moon} from "ionicons/icons";
-import { useSession, CombinedDataProvider, Text } from "@inrupt/solid-ui-react";
+import { useSession, CombinedDataProvider, Text, LogoutButton } from "@inrupt/solid-ui-react";
 
 const Account: React.FC = () => {
-    //const { userName } = useAuth(); 
     const { session, sessionRequestInProgress } = useSession();
-    //const [test, setTest] = useState("loading");
-    // if (sessionRequestInProgress) return "Loading...";
 
     // useEffect(() => {
     //     if (!sessionRequestInProgress) {
@@ -40,12 +38,12 @@ const Account: React.FC = () => {
             </IonHeader>
                 {session.info.isLoggedIn ? (
                 <IonContent fullscreen>
-                <IonTitle>Welcome</IonTitle>
+                <IonTitle class="ion-padding-vertical">Welcome, </IonTitle>
                     <CombinedDataProvider datasetUrl={ session.info.webId} thingUrl={ session.info.webId}>
                         <Text properties={[
                             "http://www.w3.org/2006/vcard/ns#fn",
                             "http://xmlns.com/foaf/0.1/name",
-                    ]} />
+                        ]} />
                     </CombinedDataProvider>
 
                 <IonItem>
@@ -59,14 +57,16 @@ const Account: React.FC = () => {
                 </IonItem>
                 <IonGrid>
                     <IonRow class="ion-justify-content-center">
-                        <IonButton fill="clear" color="dark"  routerLink="/login" className={styles.logout}>logout</IonButton>
+                        <LogoutButton>
+                            <IonButton fill="clear" color="dark"  routerLink="/login" className={styles.logout}>logout</IonButton> 
+                        </LogoutButton>
                     </IonRow>
                 </IonGrid>
                 </IonContent>
                 ) : (
                     
                     <IonContent fullscreen>
-                        <div>Loading... </div>
+                        <div>Not logged in, please <IonRouterLink href='/login'>relogin</IonRouterLink> </div>
                     </IonContent>
                 )};
         </IonPage>
